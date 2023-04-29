@@ -25,7 +25,12 @@ jobs:
   deploy:
     name: deploy to github pages
     runs-on: ubuntu-latest
-    
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} 
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -45,5 +50,5 @@ jobs:
         with:
           path: './build'
       - name: Deploy to GitHub Pages
-        #id: deployment
+        id: deployment
         uses: actions/deploy-pages@v2
